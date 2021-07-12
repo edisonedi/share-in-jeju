@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ch.project.dao.IUserDao">
+
+	<!-- UserResultMap 설정 -->	
+	<resultMap type="com.ch.project.model.Users" id="UsersResultMap">
+		<!-- primary key는 id태그 -->
+		<id property="userNo" column="email" />
+		<!-- 나머지는 result태그 -->
+		<result property="email" column="email" />
+		<result property="id" column="id" />
+		<result property="pw" column="pw" />
+		<result property="name" column="name" />
+		<result property="intro" column="intro" />
+		<result property="phone" column="phone" />
+		<result property="regDate" column="regDate" />
+		
+		<result property="profileName" column="profile_name" />
+		<result property="profileSize" column="profile_size" />
+		<result property="profileContentType" column="profile_content_type" />
+		<result property="fileData" column="file_data" />
+	</resultMap>
+	
+	<resultMap type="com.ch.project.model.Users" id="UsersResultMap">
+		<id property="userImgNo" column="user_img_no" />
+		<result property="userNo" column="user_no" />
+		<result property="profileName" column="profile_name" />
+		<result property="profileSize" column="profile_size" />
+		<result property="profileContentType" column="profile_content_type" />
+		<result property="profileData" column="profile_data" />
+	</resultMap>	
+		
+	<!-- ///// 회원가입 로직  ///// -->	
+	<!-- 회원 등록 SQL -->	
+	<insert id="register">
+		insert into users(email, id, pw, name) values(#{email}, #{id}, #{pw}, #{name})
+	</insert>
+	
+	<!-- 이메일 중복확인 SQL -->
+	<select id="isDuplicateEmail" resultType="int">
+		select count(*)
+		from users
+		where email=#{email}
+	</select>
+	
+	<!-- 아이디 중복확인 SQL -->
+	<select id="isDuplicatedId" resultType="int">
+		select count(*)
+		from users
+		where id=#{id}
+	</select>
+	
+	
+	<!-- ///// 로그인 로직  ///// -->	
+	<!-- 회원정보 조회 동적 SQL처리 -->
+	<select id="login" resultMap="UsersResultMap">
+		select
+			U.users_no as user_no,
+				email,
+				id,
+				pw,
+				name,
+				intro,
+				phone,
+				reg_date,
+				I.user_img_no as user_img_no,
+				I.profile_name as profile_name,
+				I.profile_size as profile_size,
+				I.profile_content_type as profile_content_type
+			from users U
+			left outer join user_imgs I
+			on U.user_no = I.user_no
+			where email=#{email}
+		</select>
+		
+		
+		<!-- ///// 회원정보 로직  ///// -->	
+		<!-- 회원정보 수정 기능 -->
+		<update id="modifyInfo">
+			update users set id=#{id}, email=#{email}, name=#{name}, intro=#{intro}, phone=#{phone} where user_
+		</update>
+		
+		<!-- 파일 조회 기능 -->
+		<select id="getProfile" resultMap="UserImgsResultMap">
+			select * from user_imgs where user_no=#{userNo}
+		</select>
+		
+		<!-- 프로필 사진 등록 기능 -->
+		<insert id="insertUserImg">
+			insert into user_imgs(user_no, profile_name, profile_size, profile_content_type, profile_data) val
+		</insert>
+		
+		
+		<!-- 아이디로 회원 모든 정보 조회 기능 -->
+		<select id="inquiryOfUserById" resultMap="UserResultMap">
+			select
+				U.user_no as user_no,
+					email,
+					id,
+					pw,
+					name,
+					intro,
+					phone,
+					reg_date,
+					I.user_no as user_no,
+					I.profile_name as profile_name,
+					I.profile_size as profile_size,
+					I.profile_content_type as profile_content_type
+				from users U
+				left outer join user_imgs I
+				on U.user_no = I.user_no
+				where id=#{id};
+			</select>
+			
+		<!-- 회원번호로 회원 모든 정보 조회 기능 -->
+		<select id="inquiryOfUserByUserNo" resultMap="UserResultMap">
+			select
+				U.user_no as user_no,
+					email,
+					id,
+					pw,
+					name,
+					intro,
+					phone,
+					reg_date,
+					I.user_no as user_no,
+					I.profile_name as profile_name,
+					I.profile_size as profile_size,
+					I.profile_content_type as profile_content_type
+				from users U
+				left outer join user_imgs I
+				on U.user_no = I.user_no
+				where U.user_no=#{userNo};
+			</select>	
+					
+					
+		<!-- 프로필 파일 삭제 기능  -->
+		<delete id="deleteUserImg">
+			delete from user_imgs where user_no =#{userNo}
+		</delete>			
+					
+					
+		<!-- 비밀번호 변경 기능  -->
+		<update id="modifyPw">
+			update users set pw=#{pw} where user_no =#{userNo}
+		</update>				
+					
+		
+		<!-- 회원 탈퇴 기능  -->
+		<delete id="withdrawal">
+			delete from users where user_no =#{userNo}
+		</delete>				
+					
+					
+	</mapper>
