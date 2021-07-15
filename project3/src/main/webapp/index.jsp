@@ -11,4 +11,4 @@
 	location.href="boardList.do";
 </script>
 </body>
-</html>
+</html> 
