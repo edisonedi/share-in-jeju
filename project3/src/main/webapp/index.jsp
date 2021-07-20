@@ -8,7 +8,15 @@
 </head>
 <body>
 <script type="text/javascript">
-	location.href="boardList.do";
+	// 게시글 실행시
+// 	location.href="boardList.do";
+	// 메인 실행시
+//	location.href='loginForm.do';
+	// 회원가입 실행시
+//	location.href='joinForm.do';
+	// 관리자화면 실행시
+	location.href='main/admin_loginForm.do';
+	
 </script>
 </body>
 </html> 

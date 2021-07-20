@@ -18,3 +18,16 @@ delete from board3;
 INSERT INTO board3 values(1,'길동1','글1','내용1',sysdate,0,1);
 INSERT INTO board3 values(2,'길동2','글2','내용2',sysdate,1,2);
 INSERT INTO board3 values(3,'길동3','글3','내용3',sysdate,2,3);
+
+-- 회원관리 
+create table pmember (
+	id varchar2(20) primary key,
+	email varchar2(30),
+	password varchar2(30),
+	name varchar2(30),
+	del char(1) default 'n',
+	regdate date
+);
+select * from pmember;
+
+

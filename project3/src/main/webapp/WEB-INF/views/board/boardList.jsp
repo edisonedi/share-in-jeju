@@ -27,7 +27,7 @@
 	<td>수정</td>
 	</tr>
 	<c:if test="${empty boardList }">
-		<tr><th colspan="5">부서정보가 없습니다</th></tr>
+		<tr><th colspan="5">게시글이 없습니다</th></tr>
 	</c:if>
 	<c:if test="${not empty boardList }">
 		<c:forEach var="board" items="${boardList}">
@@ -51,7 +51,7 @@
 </div>
 <div align="center">
 <a class="btn btn-info" href="boardInsertForm.do" >게시글 입력</a>
-<a class="btn btn-default" href="">전 게시글목록</a>
+<a class="btn btn-default" href="">전 게시글 목록</a>
 </div>	
 		
 		

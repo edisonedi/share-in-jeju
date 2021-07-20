@@ -21,6 +21,18 @@
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
 	
+<!-- 	<interceptors>
+		<interceptor>
+			<mapping path="/main.do"/>
+			<mapping path="/view.do"/>
+			<mapping path="/updateForm.do"/>
+			<mapping path="/update.do"/>
+			<mapping path="/delete.do"/>
+			
+			<beans:ref bean="sc"></beans:ref>
+		</interceptor>
+	</interceptors>	 -->
+	
 	<context:component-scan base-package="com.ch.project"/>
 	<!-- 세션 추가 기능 -->
 	<!--<beans:bean id="sc" class="com.ch.mybatis.service.SessionChk"></beans:bean>

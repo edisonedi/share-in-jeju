@@ -16,12 +16,12 @@
 	
 	<!-- 조회 -->
 	<select id="list"  resultMap="boardResult">
-		select * from board3 order by bid
+		select * from pboard order by bid
 	</select>
 	
 	<!-- 여기 수정필요 -->
 	 <select id="select" parameterType="integer" resultType="board">
-		select * from board3 where bid=#{bid}
+		select * from pboard where bid=#{bid}
 	</select>
 	 
 	
@@ -31,13 +31,13 @@
 		keyProperty : 시퀀스 생성할 칼럼, order='BEFORE' : (실행순서) 밑에 글 전에 실행해야 한다,resultType="integer" : 시퀀스 설정후 보내는 데이터 형
 	-->
 	<selectKey keyProperty="bid" order="BEFORE" resultType="integer">
-		select nvl(max(bid),0)+1 bid from board3
+		select nvl(max(bid),0)+1 bid from pboard
 	</selectKey>
-		insert into board3 values(#{bid},#{writer},#{title},#{content},sysdate,0)
+		insert into pboard values(#{bid},#{writer},#{title},#{content},sysdate,0)
 	</insert>
 	<!-- 수정 -->
 	<update id="update" parameterType="board">
-		update board3 set title=#{title}, content=#{content} where bid = #{bid}
+		update pboard set title=#{title}, content=#{content} where bid = #{bid}
 	</update>
 	<!-- 삭제 -->
 
