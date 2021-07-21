@@ -30,4 +30,13 @@ create table pmember (
 );
 select * from pmember;
 
+-- 게시판 좋아요 테이블
+create table likes{
+	likeId varchar2(100) not null,--회원 아이디
+	likebid number not null, --게시물 기본키
+	likenum number default 0, --좋아요 체크
+	FOREIGN KEY(likeId) REFERENCES pmember(id),
+	FOREIGN KEY(likebid) REFERENCES board3(bcode)
+	};
+
 
